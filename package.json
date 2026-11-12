@@ -1,6 +1,6 @@
 {
   "name": "meine-ai",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Lokaler KI-Programmierassistent mit Ollama",
   "main": "main.js",
   "scripts": { "start": "electron .", "dist": "electron-builder --win nsis zip" },
