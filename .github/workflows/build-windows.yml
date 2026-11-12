@@ -1,0 +1,37 @@
+name: Build Meine AI for Windows
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - 'package.json'
+      - 'main.js'
+      - 'preload.js'
+      - 'index.html'
+      - 'style.css'
+      - 'renderer.js'
+      - '.github/workflows/build-windows.yml'
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm install
+      - name: Build Windows installer and ZIP
+        run: npm run dist
+      - name: Upload build files
+        uses: actions/upload-artifact@v4
+        with:
+          name: Meine-AI-Windows
+          path: dist/*
+          if-no-files-found: error
+          retention-days: 14
